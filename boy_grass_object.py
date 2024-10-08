@@ -29,6 +29,35 @@ class Boy:
         self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
 
 
+class Ball:
+    def __init__(self):
+        self.x = randint(0, 799)
+        self.y = 599
+        self.speed = randint(3, 6)
+
+        size = randint(0, 1)
+
+        if size == 0:
+            self.image = load_image("ball21x21.png")
+            self.wh = 11.5
+
+        else:
+            self.image = load_image("ball41x41.png")
+            self.wh = 21.5
+
+    def update(self):
+        self.y -= self.speed
+
+        if self.y - self.wh <= 55:
+            self.speed = 0
+
+    def draw(self):
+        self.image.draw(self.x, self.y)
+
+    def checkColision(self):
+        pass
+
+
 def handle_events():
     global running
 
@@ -67,6 +96,9 @@ def reset_worlds():
 
     team = [Boy() for i in range(11)]
     worlds += team
+
+    balls = [Ball() for i in range(20)]
+    worlds += balls
 
 
 open_canvas()
